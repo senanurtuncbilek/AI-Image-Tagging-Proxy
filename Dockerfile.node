@@ -1,0 +1,28 @@
+FROM node:20-alpine
+
+WORKDIR /app
+
+# Package dosyalarını kopyala
+COPY package*.json ./
+COPY tsconfig.json ./
+
+# Dependencies yükle
+RUN npm ci
+
+# Source kodunu kopyala
+COPY src ./src
+
+# Build
+RUN npm run build
+
+# Uploads ve logs klasörlerini oluştur
+RUN mkdir -p uploads logs
+
+# Port
+EXPOSE 3000
+
+# Start
+CMD ["npm", "start"]
+
+
+

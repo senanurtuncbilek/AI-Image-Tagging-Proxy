@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  node-api:
+    build:
+      context: .
+      dockerfile: Dockerfile.node
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - PYTHON_SERVICE_URL=http://python-ai:5000
+    volumes:
+      - ./uploads:/app/uploads
+      - ./logs:/app/logs
+    depends_on:
+      - python-ai
+    restart: unless-stopped
+
+  python-ai:
+    build:
+      context: ./python-ai
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    environment:
+      - FLASK_PORT=5000
+      - FLASK_HOST=0.0.0.0
+      - DEBUG=False
+      - MODEL_PATH=models/yolov8n.pt
+    volumes:
+      - ./uploads:/app/uploads
+      - ./python-ai/models:/app/models
+    restart: unless-stopped
+
+
+
