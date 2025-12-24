@@ -13,9 +13,13 @@
         "url": {
           "raw": "http://localhost:3000/health",
           "protocol": "http",
-          "host": ["localhost"],
+          "host": [
+            "localhost"
+          ],
           "port": "3000",
-          "path": ["health"]
+          "path": [
+            "health"
+          ]
         }
       }
     },
@@ -27,9 +31,13 @@
         "url": {
           "raw": "http://localhost:5000/health",
           "protocol": "http",
-          "host": ["localhost"],
+          "host": [
+            "localhost"
+          ],
           "port": "5000",
-          "path": ["health"]
+          "path": [
+            "health"
+          ]
         }
       }
     },
@@ -51,15 +59,17 @@
         "url": {
           "raw": "http://localhost:3000/api/analyze",
           "protocol": "http",
-          "host": ["localhost"],
+          "host": [
+            "localhost"
+          ],
           "port": "3000",
-          "path": ["api", "analyze"]
+          "path": [
+            "api",
+            "analyze"
+          ]
         },
         "description": "Resim yükleme ve analiz endpoint'i. Body'de 'image' field'ı ile dosya gönderin."
       }
     }
   ]
 }
-
-
-
