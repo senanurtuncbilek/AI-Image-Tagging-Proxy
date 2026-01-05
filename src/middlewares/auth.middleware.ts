@@ -2,8 +2,14 @@ import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 
 export const verifyToken = (req: Request, res: Response, next: NextFunction) => {
-    const authHeader = req.headers['authorization'];
-    const token = authHeader && authHeader.split(' ')[1];
+    // ✅ ÖNCE COOKIE'DEN TOKEN AL
+    let token = req.cookies?.token;
+    
+    // ✅ Cookie'de yoksa Authorization header'a bak (backward compatibility)
+    if (!token) {
+        const authHeader = req.headers['authorization'];
+        token = authHeader && authHeader.split(' ')[1];
+    }
 
     if (!token) {
         return res.status(401).json({ 
@@ -20,7 +26,6 @@ export const verifyToken = (req: Request, res: Response, next: NextFunction) => 
             });
         }
         
-        // Token'daki bilgileri req'e ekle
         (req as any).user = {
             userId: decoded.userId || decoded.id,
             username: decoded.username
